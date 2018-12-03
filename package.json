@@ -1,0 +1,25 @@
+{
+    "name": "light-app-cli",
+    "version": "0.0.2",
+    "description": "轻应用项目脚手架",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "bin": {
+        "light-app-cli": "./index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hanhan3682523/light-app-cli.git"
+    },
+    "keywords": [
+        "cli"
+    ],
+    "author": "飘落的枫叶",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hanhan3682523/light-app-cli/issues"
+    },
+    "homepage": "https://github.com/hanhan3682523/light-app-cli#readme"
+}
