@@ -4,8 +4,8 @@
     "description": "",
     "private": true,
     "scripts": {
-        "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
-        "build": "cross-env NODE_ENV=production webpack --config webpack.build.config.js --progress --color",
+        "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.config.js",
+        "build": "cross-env NODE_ENV=production webpack --config build/webpack.build.config.js --progress --color",
         "server": "node mock/server.js"
     },
     "author": "",

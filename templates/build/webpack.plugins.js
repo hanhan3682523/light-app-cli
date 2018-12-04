@@ -3,8 +3,9 @@
     说明：配置webpack打包插件
     日期：2018.5.8
 */
-
-//路徑
+//配置文件
+const config = require('../config/index')
+    //路徑
 const path = require('path');
 // html模板
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -27,16 +28,18 @@ var glob = require('globby');
 //webpack
 const webpack = require('webpack');
 
-var config = [
+var pluginsConfig = [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     // 调用之前先清除
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist', 'zip'], {
+        root: path.resolve(__dirname, "..")
+    }),
     //vue插件
     new VueLoaderPlugin(),
     //静态资源输出
     new copyWebpackPlugin([{
-        from: path.resolve(__dirname, "src/assets"),
+        from: path.resolve(__dirname, "../src/assets"),
         to: './assets'
     }]),
     // 分离css插件参数为提取出去的路径
@@ -60,7 +63,7 @@ var config = [
     const fileList = glob.sync(['./src/*.html']);
     if (fileList && fileList.length > 0) {
         for (var i = 0; i < fileList.length; i++) {
-            config.push(
+            pluginsConfig.push(
                 new HtmlWebpackPlugin({
                     template: fileList[i],
                     filename: fileList[i].match(/([^\/]+)(?=\.)/ig)[0] + '.html',
@@ -74,11 +77,11 @@ var config = [
 
 //自动压缩dist 到zip文件
 //环境判断
-if (process.env && process.env.NODE_ENV && process.env.NODE_ENV.trim() === "production") {
+if (process.env && process.env.NODE_ENV && process.env.NODE_ENV.trim() === "production" && config.build.zipName) {
     // 调用之前先清除
-    config.push(new CleanWebpackPlugin(['zip']));
-    let _zipfilename = 'demo';
-    config.push(new FileManagerPlugin({
+    pluginsConfig.push(new CleanWebpackPlugin(['zip']));
+    let _zipfilename = config.build.zipName;
+    pluginsConfig.push(new FileManagerPlugin({
         onEnd: {
             //c
             mkdir: ['./zip', './tempzip/' + _zipfilename],
@@ -97,4 +100,4 @@ if (process.env && process.env.NODE_ENV && process.env.NODE_ENV.trim() === "prod
     }));
 }
 
-module.exports = config;
+module.exports = pluginsConfig;

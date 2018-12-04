@@ -1,5 +1,6 @@
 const path = require('path');
-//插件
+const config = require('../config/index')
+    //插件
 const pluginsConfig = require('./webpack.plugins');
 //loader
 const rulesConfig = require('./webpack.rules');
@@ -7,7 +8,7 @@ const rulesConfig = require('./webpack.rules');
 var glob = require('globby');
 
 function resolve(dir) {
-    return path.join(__dirname, '', dir)
+    return path.join(__dirname, '..', dir)
 }
 
 var entryConfig = (function() {
@@ -25,13 +26,17 @@ var entryConfig = (function() {
 console.log(entryConfig);
 
 module.exports = {
+    //基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader
+    context: path.resolve(__dirname, "../"),
     //入口
     entry: entryConfig,
     //出口
     output: {
         filename: 'js/[name].[hash].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: ''
+        path: config.build.assetsRoot,
+        publicPath: process.env.NODE_ENV === 'production' ?
+            config.build.assetsPublicPath :
+            config.dev.assetsPublicPath
     },
     //配置 Webpack 如何寻找模块所对应的文件
     resolve: {

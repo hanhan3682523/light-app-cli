@@ -1,3 +1,4 @@
+const config = require('../config/index')
 const common = require('./webpack.base.conf');
 const merge = require('webpack-merge');
 
@@ -28,7 +29,7 @@ module.exports = merge(common, {
         //一切服务都启用gzip 压缩：
         compress: true,
         //端口号
-        port: 9000,
+        port: config.dev.port || '8080',
         //自动打开浏览器
         open: true,
         //模块热替换
@@ -38,7 +39,7 @@ module.exports = merge(common, {
         //打开的页面
         openPage: '',
         //host:'0.0.0.0'--别人可以访问
-        host: 'hxj.com',
+        host: config.dev.host || 'hxj.com',
         //支持https
         // https: true
     }
