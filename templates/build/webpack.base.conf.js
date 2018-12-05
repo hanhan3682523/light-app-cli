@@ -32,7 +32,7 @@ module.exports = {
     entry: entryConfig,
     //出口
     output: {
-        filename: 'js/[name].[hash].js',
+        filename: 'js/[name][hash].js',
         path: config.build.assetsRoot,
         publicPath: process.env.NODE_ENV === 'production' ?
             config.build.assetsPublicPath :
