@@ -44,7 +44,7 @@ var pluginsConfig = [
     }]),
     // 分离css插件参数为提取出去的路径
     new extractTextPlugin({
-        filename: 'style/[name].[hash].css',
+        filename: 'style/[name][hash].css',
     }),
     //css进行压缩
     new OptimizeCssAssetsPlugin({
